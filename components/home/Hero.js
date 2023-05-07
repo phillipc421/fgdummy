@@ -33,7 +33,7 @@ export default function Hero() {
           that make up the foundation of our brand. We exist to encourage people
           to be truly authentic. To eliminate future regrets and drive happy
           living. Your interests, passions, and thoughts are all uniquely yours,
-          and that's special.
+          and that&apos;s special.
         </Typography>
         <Button variant="contained" onClick={() => router.push("/products")}>
           Shop Now
