@@ -20,7 +20,7 @@ export default function Form() {
     setIsLoading(true);
     const { error } = await stripe.confirmPayment({
       elements,
-      confirmParams: { return_url: "http://localhost:3001" },
+      confirmParams: { return_url: "http://localhost:3000" },
     });
     setIsLoading(false);
   };
