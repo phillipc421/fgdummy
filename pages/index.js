@@ -1,13 +1,8 @@
-import Cart from "../components/cart/Cart";
-import ProductList from "../components/products/productList";
-import useProducts from "../custom-hooks/useProducts";
-
-export default function Home() {
-  const products = useProducts();
-
+import Hero from "../components/home/Hero";
+export default function HomePage() {
   return (
     <main>
-      <ProductList products={products}></ProductList>
+      <Hero></Hero>
     </main>
   );
 }

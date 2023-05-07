@@ -5,6 +5,8 @@ import NavItem from "./NavItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import CartIcon from "../../cart/CartIcon";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import InfoIcon from "@mui/icons-material/Info";
+import EmailIcon from "@mui/icons-material/Email";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 
@@ -24,7 +26,17 @@ export default function NavBar() {
     {
       icon: <InventoryIcon></InventoryIcon>,
       text: "Products",
-      click: () => clickHandler(() => router.push("/")),
+      click: () => clickHandler(() => router.push("/products")),
+    },
+    {
+      icon: <InfoIcon></InfoIcon>,
+      text: "About",
+      click: () => clickHandler(() => router.push("/about")),
+    },
+    {
+      icon: <EmailIcon></EmailIcon>,
+      text: "Contact",
+      click: () => clickHandler(() => router.push("/contact")),
     },
     {
       icon: <CartIcon></CartIcon>,
