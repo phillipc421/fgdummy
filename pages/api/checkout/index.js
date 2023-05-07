@@ -1,3 +1,7 @@
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_KEY, { apiVersion: "2022-11-15" });
+
 export default async function handler(req, res) {
   const METHOD = req.method;
   // checkout needs to be separate from the intent endpoint
@@ -9,18 +13,44 @@ export default async function handler(req, res) {
           id: item.id,
           qty: item.qty,
         }));
-        const response = await fetch("http://localhost:3000/stripe", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items: cartItems }),
-        });
-        const data = await response.json();
-        if (response.ok) {
-          return res.status(response.status).json(data);
-        }
-        return res.status(response.status).json(data.message);
+        const data = await calculateAmount(cartItems);
+        console.log(data);
+        const paymentIntent = await createPaymentIntent(data);
+        console.log("INTENT", paymentIntent);
+        return res.status(200).json(paymentIntent);
       } catch (e) {
+        console.log(e);
         return res.status(500).json({ message: "Internal Server Error" });
       }
   }
 }
+
+const getProducts = async () => {
+  const response = await fetch("http://localhost:3000/products.json");
+  return response.json();
+};
+
+const calculateAmount = async (cartItems) => {
+  const products = await getProducts();
+  const idPriceMap = {};
+  products.forEach((product) => (idPriceMap[product.id] = product.price));
+
+  // calculate total cart amount
+  // stripe wants smallest currency unit, ie cents, hence the * 100
+  return (
+    cartItems.reduce((prev, curr) => prev + idPriceMap[curr.id] * curr.qty, 0) *
+    100
+  );
+};
+
+const createPaymentIntent = async (data) => {
+  const paymentIntent = await stripe.paymentIntents.create({
+    setup_future_usage: "off_session",
+    amount: data,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+  return { stripeClientSecret: paymentIntent.client_secret };
+};

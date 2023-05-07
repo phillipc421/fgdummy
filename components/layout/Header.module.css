@@ -1,20 +1,17 @@
 @font-face {
-	font-family: goodtimes;
-	src: url(https://flyguy-store.s3.us-east-2.amazonaws.com/goodtimes.otf);
+  font-family: goodtimes;
+  src: url(https://flyguy-store.s3.us-east-2.amazonaws.com/goodtimes.otf);
 }
 
 .container {
-	display: flex;
-	align-items: center;
-	justify-content: space-evenly;
-	padding: 1rem;
-	flex-wrap: wrap;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  flex-wrap: wrap;
 }
 
 .container a {
-	text-decoration: none;
-	color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
-
-
