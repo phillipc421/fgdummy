@@ -1,11 +1,11 @@
-import { useContext, Fragment, useState, useMemo } from "react";
+import { useContext, Fragment, useState } from "react";
 import { CartContext } from "../../store/cartContext";
-import { transformCart } from "../../store/cartContext";
+
 import CartItem from "./CartItem";
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import Typography from "@mui/material/Typography";
-import Snackbar from "@mui/material/Snackbar";
+
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -78,22 +78,23 @@ export default function Cart() {
       {cartTotal ? (
         <Box>
           <Typography variant="body1">Sub Total: ${cartTotal}</Typography>
-
-          <Button
-            endIcon={<DeleteOutlineIcon></DeleteOutlineIcon>}
-            variant="text"
-            onClick={emptyHandler}
-            disabled={!cartTotal}
-          >
-            Empty
-          </Button>
-          <Button
-            variant="contained"
-            disabled={!cartTotal}
-            onClick={() => setCheckoutOpen(true)}
-          >
-            Checkout
-          </Button>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Button
+              endIcon={<DeleteOutlineIcon></DeleteOutlineIcon>}
+              variant="text"
+              onClick={emptyHandler}
+              disabled={!cartTotal}
+            >
+              Empty
+            </Button>
+            <Button
+              variant="contained"
+              disabled={!cartTotal}
+              onClick={() => setCheckoutOpen(true)}
+            >
+              Checkout
+            </Button>
+          </Box>
         </Box>
       ) : (
         <Typography variant="body1" textAlign="center">

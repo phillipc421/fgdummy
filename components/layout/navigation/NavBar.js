@@ -1,4 +1,3 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Menu from "@mui/material/Menu";
@@ -17,11 +16,10 @@ export default function NavBar() {
   const [anchor, setAnchor] = useState(null);
   const { setCartOpen } = useContext(CartContext);
   const router = useRouter();
-  const { user, isLoading, error } = useUser();
+
   // admin functionality
   // protect routes to admins functions
 
-  // const isAdmin = user[ROLES][0] === "Admin";
   const links = [
     {
       icon: <InventoryIcon></InventoryIcon>,
@@ -33,30 +31,7 @@ export default function NavBar() {
       text: "Cart",
       click: () => clickHandler(() => setCartOpen(true)),
     },
-    {
-      icon: !user ? <LoginIcon></LoginIcon> : <LogoutIcon></LogoutIcon>,
-      text: !user ? "Login" : "Logout",
-      click: () =>
-        clickHandler(() =>
-          router.push(!user ? "/api/auth/login" : "/api/auth/logout")
-        ),
-    },
   ];
-
-  user &&
-    user[ROLES][0] === "Admin" &&
-    links.push(
-      {
-        icon: <InventoryIcon></InventoryIcon>,
-        text: "Add Product",
-        click: () => clickHandler(() => router.push("/admin/create-product")),
-      },
-      {
-        icon: <InventoryIcon></InventoryIcon>,
-        text: "Update Products",
-        click: () => clickHandler(() => router.push("/admin/edit-product")),
-      }
-    );
 
   // wrapper to always close menu when an item is clicked
   const clickHandler = (fn) => {

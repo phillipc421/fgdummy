@@ -8,7 +8,6 @@ import Form from "./Form";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_P_KEY);
 export default function Checkout({ cart, checkoutSetter }) {
   const [stripeCs, setStripeCs] = useState("");
-  console.log(stripePromise);
   useEffect(() => {
     const fetcher = async () => {
       try {
@@ -22,7 +21,7 @@ export default function Checkout({ cart, checkoutSetter }) {
           setStripeCs(data.stripeClientSecret);
         }
         // success
-        console.log(data);
+        console.log("SUC", data);
       } catch (e) {
         console.log(e);
       }

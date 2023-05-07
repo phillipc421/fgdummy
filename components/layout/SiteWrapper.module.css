@@ -1,17 +1,19 @@
 .container {
-	padding: 1rem;
+  max-width: 70rem;
+  margin: auto;
+  background-color: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-
 .logo {
-	font-family: goodtimes;
-	font-size: 2rem;
-	padding: 0;
-	margin: 0;
+  font-family: goodtimes;
+  font-size: 2rem;
+  padding: 0;
+  margin: 0;
 }
 
 .menu {
-	display: flex;
-	gap: 1rem;
-	align-items: center;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
