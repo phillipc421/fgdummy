@@ -20,8 +20,6 @@ export default function Checkout({ cart, checkoutSetter }) {
         if (data.stripeClientSecret) {
           setStripeCs(data.stripeClientSecret);
         }
-        // success
-        console.log("SUC", data);
       } catch (e) {
         console.log(e);
       }
@@ -29,12 +27,10 @@ export default function Checkout({ cart, checkoutSetter }) {
     if (!stripeCs) {
       fetcher();
     }
-    return () => console.log("unmounted");
   }, [cart]);
-  console.log(stripeCs);
+
   return (
     <div>
-      {/* {JSON.stringify(cart)} */}
       {stripeCs && (
         <Elements
           options={{ clientSecret: stripeCs, appearance: { theme: "stripe" } }}

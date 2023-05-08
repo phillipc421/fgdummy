@@ -14,9 +14,7 @@ export default async function handler(req, res) {
           qty: item.qty,
         }));
         const data = await calculateAmount(cartItems);
-        console.log(data);
         const paymentIntent = await createPaymentIntent(data);
-        console.log("INTENT", paymentIntent);
         return res.status(200).json(paymentIntent);
       } catch (e) {
         console.log(e);
@@ -26,7 +24,7 @@ export default async function handler(req, res) {
 }
 
 const getProducts = async () => {
-  const response = await fetch("http://localhost:3000/products.json");
+  const response = await fetch(process.env.DEV_URL + "/api/data");
   return response.json();
 };
 

@@ -15,31 +15,8 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Checkout from "../checkout/Checkout";
 
 export default function Cart() {
-  const { cartOpen, setCartOpen, cart, setCart } = useContext(CartContext);
+  const { setCartOpen, cart, setCart } = useContext(CartContext);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [stripeCs, setStripeCs] = useState("");
-
-  // checkout and create intent are different
-  // intent should happen when checkout first starts;
-  const checkoutHandler = async () => {
-    setCheckoutOpen(true);
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(cart),
-      });
-      const data = await response.json();
-      if (data.stripeClientSecret) {
-        setStripeCs(data.stripeClientSecret);
-      }
-      // success
-      console.log(data);
-    } catch (e) {
-      console.log(e);
-      setCartOpen(false);
-    }
-  };
 
   const emptyHandler = () => setCart({});
 
