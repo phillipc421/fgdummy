@@ -12,10 +12,22 @@ export default function Form() {
   const clearHandler = () => {
     setFormFields({ ...defaults });
   };
-  const submitHandler = () => {
-    console.log(formFields);
-    setMessage(["Message Sent", true]);
-    clearHandler();
+  const submitHandler = async () => {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formFields),
+      });
+      if (response.ok) {
+        setMessage(["Message Sent", true]);
+        clearHandler();
+        return;
+      }
+      throw new Error("Error Sending Message");
+    } catch (e) {
+      setMessage([e.message, true]);
+    }
   };
 
   const valid = () => {
